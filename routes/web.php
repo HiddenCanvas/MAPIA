@@ -9,24 +9,14 @@ use App\Http\Controllers\Notifikasi\NotifikasiController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+use App\Http\Controllers\Auth\LoginController;
+
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('dashboard');
 });
 
-// Login route (required by auth middleware)
-Route::get('/login', function () {
-    return redirect()->route('login-demo');
-})->name('login');
-
-// Bypass login for demo purposes
-Route::get('/login-demo', function () {
-    $user = User::where('email', 'budi@mapia.id')->first();
-    if ($user) {
-        Auth::login($user);
-        return redirect()->route('dashboard');
-    }
-    return "User dummy belum ada. Silakan jalankan php artisan db:seed";
-})->name('login-demo');
+Route::get('/login', [LoginController::class, 'showForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -54,8 +44,5 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tandai-semua', [NotifikasiController::class, 'tandaiSemua'])->name('tandai-semua');
     });
     
-    Route::post('/logout', function () {
-        Auth::logout();
-        return redirect('/');
-    })->name('logout');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

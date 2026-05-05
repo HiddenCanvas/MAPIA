@@ -13,7 +13,7 @@
 :root{--text:#0D0D0D;--background:#F5F0E8;--primary:#0D0D0D;--secondary:#FFFFFF;--accent:#C8F135;--border:#E5E0D5;--sidebar-w:240px;--topbar-h:70px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;height:100%}
-body{font-family:'DM Sans',sans-serif;background:var(--background);color:var(--text);min-height:100%;display:flex;font-size:15px;line-height:1.5;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--background);color:var(--text);min-height:100vh;display:flex;font-size:15px;line-height:1.5;overflow:hidden}
 h1,h2,h3,h4,h5,h6,.page-title{font-family:'Sora',sans-serif}
 
 /* ── SIDEBAR ── */
@@ -59,9 +59,10 @@ h1,h2,h3,h4,h5,h6,.page-title{font-family:'Sora',sans-serif}
 .topbar{display:flex}
 .sidebar{transform:translateX(-100%)}
 .sidebar.open{transform:translateX(0)}
-.main-wrap{margin-left:0;padding-top:var(--topbar-h);height:auto;min-height:100vh;overflow-y:auto}
+.main-wrap{margin-left:0;padding-top:var(--topbar-h);height:auto;min-height:calc(100vh - var(--topbar-h));overflow:visible}
 .page-header{padding:24px 20px 16px}
 .page-body{padding:16px 20px 32px}
+body,html{overflow:auto;height:auto}
 }
 </style>
 </head>
