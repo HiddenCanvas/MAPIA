@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title', 'Dashboard Utama')
-@section('page-title', '🌿 Dashboard Utama')
+@section('page-title', 'Dashboard Utama')
 @section('page-subtitle', 'Pantauan kebun Anda dalam satu tampilan')
 
 @section('page-actions')
 <button onclick="window.location.reload()" class="btn-refresh">
-    🔄 Perbarui Data
+    Perbarui Data
 </button>
 @endsection
 
@@ -14,65 +14,66 @@
 <style>
     /* ── Welcome Banner ── */
     .welcome-banner {
-        background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%);
-        border: 2px solid #fab005;
-        padding: 24px 28px;
-        border-radius: 20px;
-        margin-bottom: 32px;
+        background: #0D0D0D;
+        border: 1px solid #E5E0D5;
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 24px;
         display: flex;
         align-items: center;
         gap: 16px;
         font-size: 18px;
         font-weight: 600;
-        color: #5c4300;
+        color: #FFFFFF;
+        font-family: 'Sora', sans-serif;
     }
     .welcome-banner .emoji { font-size: 28px; }
 
     /* ── Stat Cards ── */
     .stat-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 24px;
-        margin-bottom: 40px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 32px;
     }
     .stat-card {
-        background: #fff;
-        padding: 28px 24px;
-        border-radius: 20px;
-        border: 2px solid rgba(0,0,0,0.06);
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid #E5E0D5;
         transition: all 0.3s ease;
     }
     .stat-card:hover {
-        border-color: var(--secondary);
+        border-color: var(--text);
         transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.06);
     }
     .stat-card .stat-label {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
-        color: #888;
+        color: #666;
         margin-bottom: 12px;
         display: flex;
         align-items: center;
         gap: 8px;
     }
     .stat-card .stat-value {
-        font-size: 44px;
+        font-size: 40px;
         font-weight: 800;
         line-height: 1;
+        font-family: 'Sora', sans-serif;
     }
     .stat-card.primary-card {
-        background: var(--primary);
+        background: #0D0D0D;
     }
-    .stat-card.primary-card .stat-label { color: rgba(255,255,255,0.65); }
-    .stat-card.primary-card .stat-value { color: #fff; }
+    .stat-card.primary-card .stat-label { color: #888; }
+    .stat-card.primary-card .stat-value { color: #FFFFFF; }
 
     /* ── Section Headers ── */
     .section-title {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 700;
-        color: var(--primary);
-        margin-bottom: 24px;
+        color: var(--text);
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         gap: 12px;
@@ -81,31 +82,30 @@
     /* ── Sensor Cards ── */
     .sensor-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 24px;
-        margin-bottom: 48px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+        margin-bottom: 40px;
     }
     .sensor-card {
-        background: #fff;
-        border-radius: 24px;
-        padding: 28px;
-        border: 2px solid rgba(0,0,0,0.06);
+        background: #FFFFFF;
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid #E5E0D5;
         position: relative;
         overflow: hidden;
         transition: all 0.25s ease;
     }
     .sensor-card:hover {
-        border-color: var(--secondary);
-        box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+        border-color: var(--text);
     }
     .sensor-card::after {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
-        width: 5px;
+        width: 4px;
         height: 100%;
-        background: var(--secondary);
+        background: var(--text);
     }
     .sensor-card .card-header {
         display: flex;
@@ -114,48 +114,49 @@
         margin-bottom: 20px;
     }
     .sensor-card .card-header h3 {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         color: var(--text);
         margin-bottom: 4px;
     }
     .sensor-card .card-header p {
-        font-size: 14px;
-        color: #999;
+        font-size: 13px;
+        color: #888;
     }
     .badge-status {
-        padding: 6px 14px;
-        border-radius: 50px;
-        font-size: 12px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 11px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
-    .badge-aktif { background: #dcfce7; color: #15803d; }
-    .badge-mati { background: #f3f4f6; color: #9ca3af; }
+    .badge-aktif { background: var(--accent); color: #0D0D0D; }
+    .badge-mati { background: #E5E0D5; color: #666; }
 
     .sensor-readings {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-bottom: 20px;
+        gap: 12px;
+        margin-bottom: 16px;
     }
     .reading-box {
-        background: #f8f9fa;
-        padding: 20px 16px;
-        border-radius: 16px;
+        background: #F5F0E8;
+        padding: 16px 12px;
+        border-radius: 12px;
         text-align: center;
     }
     .reading-box .reading-value {
-        font-size: 30px;
+        font-size: 26px;
         font-weight: 800;
         display: block;
         color: var(--text);
         margin-bottom: 4px;
+        font-family: 'Sora', sans-serif;
     }
     .reading-box .reading-label {
-        font-size: 13px;
-        color: #888;
+        font-size: 12px;
+        color: #666;
         font-weight: 600;
     }
 
@@ -164,48 +165,49 @@
         justify-content: space-between;
         align-items: center;
         padding-top: 16px;
-        border-top: 1px solid #f0f0f0;
+        border-top: 1px solid #E5E0D5;
     }
     .sensor-footer .time {
-        font-size: 13px;
-        color: #aaa;
+        font-size: 12px;
+        color: #888;
     }
     .sensor-footer .condition {
         font-weight: 700;
-        font-size: 14px;
+        font-size: 13px;
     }
-    .condition-aman { color: #27ae60; }
-    .condition-kering { color: #e67e22; }
+    .condition-aman { color: #0D0D0D; }
+    .condition-kering { color: #D97706; }
 
     /* ── IoT Preview ── */
     .iot-preview {
-        background: var(--primary);
-        color: #fff;
-        padding: 40px;
-        border-radius: 24px;
+        background: #FFFFFF;
+        color: var(--text);
+        padding: 32px;
+        border-radius: 16px;
+        border: 1px solid #E5E0D5;
         text-align: center;
         margin-bottom: 32px;
     }
     .iot-preview h3 {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         margin-bottom: 8px;
     }
     .iot-preview p {
-        opacity: 0.7;
-        font-size: 15px;
+        color: #666;
+        font-size: 14px;
     }
     .signal-bars {
         display: flex;
         justify-content: center;
         gap: 8px;
-        height: 80px;
+        height: 60px;
         align-items: flex-end;
-        margin: 24px 0;
+        margin: 20px 0;
     }
     .signal-bar {
-        width: 12px;
-        background: rgba(255,255,255,0.15);
+        width: 10px;
+        background: var(--accent);
         border-radius: 4px;
         animation: signal-pulse 1.2s ease-in-out infinite alternate;
     }
@@ -216,18 +218,18 @@
 
     /* ── Btn Refresh ── */
     .btn-refresh {
-        background: var(--primary);
+        background: #0D0D0D;
         color: #fff;
         border: none;
-        padding: 12px 24px;
-        border-radius: 12px;
+        padding: 10px 20px;
+        border-radius: 999px;
         font-weight: 600;
         font-family: inherit;
         font-size: 14px;
         cursor: pointer;
         transition: 0.2s;
     }
-    .btn-refresh:hover { background: var(--secondary); }
+    .btn-refresh:hover { background: #333; }
 
     /* ── Empty State ── */
     .empty-state {
@@ -251,34 +253,36 @@
 
 {{-- Welcome Banner --}}
 <div class="welcome-banner">
-    <span class="emoji">💡</span>
+    <span class="emoji">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+    </span>
     Selamat datang, {{ Auth::user()->nama }}. Kebun Anda terpantau aman hari ini.
 </div>
 
 {{-- Stat Cards --}}
 <div class="stat-grid">
     <div class="stat-card primary-card">
-        <div class="stat-label">📡 Total Sensor</div>
+        <div class="stat-label">Total Sensor</div>
         <div class="stat-value">{{ $stats['total_sensor'] }}</div>
     </div>
     <div class="stat-card">
-        <div class="stat-label">✅ Sensor Online</div>
-        <div class="stat-value" style="color: #2ecc71;">{{ $stats['sensor_online'] }}</div>
+        <div class="stat-label">Sensor Online</div>
+        <div class="stat-value" style="color: #65A30D;">{{ $stats['sensor_online'] }}</div>
     </div>
     <div class="stat-card">
-        <div class="stat-label">🌵 Tanah Kering</div>
-        <div class="stat-value" style="color: {{ $stats['tanah_kering'] > 0 ? '#e67e22' : '#2ecc71' }};">
+        <div class="stat-label">Tanah Kering</div>
+        <div class="stat-value" style="color: {{ $stats['tanah_kering'] > 0 ? '#D97706' : '#65A30D' }};">
             {{ $stats['tanah_kering'] }}
         </div>
     </div>
     <div class="stat-card">
-        <div class="stat-label">💧 Penyiraman</div>
-        <div class="stat-value" style="color: #3498db;">{{ $stats['penyiraman_aktif'] }}</div>
+        <div class="stat-label">Penyiraman</div>
+        <div class="stat-value" style="color: #0284C7;">{{ $stats['penyiraman_aktif'] }}</div>
     </div>
 </div>
 
 {{-- Sensor List --}}
-<div class="section-title">📍 Kondisi Lokasi Kebun</div>
+<div class="section-title">Kondisi Lokasi Kebun</div>
 
 <div class="sensor-grid">
     @forelse($sensorData as $row)
@@ -295,10 +299,16 @@
 
         <div class="sensor-readings">
             <div class="reading-box">
+                <!-- // TODO: IoT — this moisture value is currently read from sensor_readings table
+//             In Sprint 3, replace with live MQTT topic: mapia/sensor/moisture
+//             ESP32 publishes every 30 seconds via WiFi to mosquitto broker -->
                 <span class="reading-value">{{ number_format($row->kelembapan, 0) }}%</span>
                 <span class="reading-label">Kelembapan</span>
             </div>
             <div class="reading-box">
+                <!-- // TODO: IoT — this pH value is currently read from sensor_readings table
+//             In Sprint 3, replace with live MQTT topic: mapia/sensor/ph
+//             Trigger notification if ph_value > 7 (abnormal for papaya) -->
                 <span class="reading-value">{{ number_format($row->ph_tanah, 1) }}</span>
                 <span class="reading-label">pH Tanah</span>
             </div>
@@ -309,9 +319,9 @@
                 {{ $row->created_at ? \Carbon\Carbon::parse($row->created_at)->diffForHumans() : 'Belum ada data' }}
             </span>
             @if($row->kelembapan < 30)
-                <span class="condition condition-kering">⚠️ Perlu Air</span>
+                <span class="condition condition-kering">[!] Perlu Air</span>
             @else
-                <span class="condition condition-aman">✅ Aman</span>
+                <span class="condition condition-aman">Aman</span>
             @endif
         </div>
     </div>
@@ -324,7 +334,7 @@
 </div>
 
 {{-- IoT Signal Preview --}}
-<div class="section-title">📡 Visualisasi IoT (Pratinjau)</div>
+<div class="section-title">Visualisasi IoT (Pratinjau)</div>
 <div class="iot-preview">
     <h3>Sinyal dari Perangkat IoT Kebun</h3>
     <p>Data dienkripsi dan dikirim via LoRaWAN / MQTT</p>

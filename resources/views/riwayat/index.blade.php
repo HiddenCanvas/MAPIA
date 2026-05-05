@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title', 'Riwayat Penyiraman')
-@section('page-title', '📋 Riwayat Penyiraman')
+@section('page-title', 'Riwayat Penyiraman')
 @section('page-subtitle', 'Catatan aktivitas penyiraman otomatis dan manual')
 
 @section('page-actions')
 <a href="{{ route('riwayat.export', request()->query()) }}" class="btn-export">
-    📥 Unduh CSV
+    Unduh CSV
 </a>
 @endsection
 
@@ -14,11 +14,11 @@
 <style>
     /* ── Filter ── */
     .filter-card {
-        background: #fff;
-        padding: 28px;
-        border-radius: 24px;
-        border: 2px solid rgba(0,0,0,0.05);
-        margin-bottom: 32px;
+        background: #FFFFFF;
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid #E5E0D5;
+        margin-bottom: 24px;
     }
     .filter-form {
         display: flex;
@@ -34,23 +34,24 @@
         min-width: 160px;
     }
     .form-group label {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: var(--primary);
+        color: #666;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     .form-control {
-        padding: 14px 16px;
-        border-radius: 14px;
-        border: 2px solid #eee;
+        padding: 12px 16px;
+        border-radius: 10px;
+        border: 1px solid #D5D0C5;
         font-family: inherit;
-        font-size: 15px;
+        font-size: 14px;
+        background: #fff;
         transition: border-color 0.2s;
     }
     .form-control:focus {
         outline: none;
-        border-color: var(--secondary);
+        border-color: var(--text);
     }
     .filter-actions {
         display: flex;
@@ -58,11 +59,11 @@
         align-items: center;
     }
     .btn-filter {
-        background: var(--secondary);
+        background: #0D0D0D;
         color: #fff;
         border: none;
-        padding: 14px 28px;
-        border-radius: 14px;
+        padding: 12px 24px;
+        border-radius: 999px;
         font-weight: 700;
         font-family: inherit;
         font-size: 14px;
@@ -70,21 +71,21 @@
         transition: 0.2s;
         white-space: nowrap;
     }
-    .btn-filter:hover { background: var(--primary); }
+    .btn-filter:hover { background: #333; }
     .btn-reset {
-        color: #aaa;
+        color: #888;
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
         white-space: nowrap;
     }
-    .btn-reset:hover { color: var(--primary); }
+    .btn-reset:hover { color: var(--text); }
 
     /* ── Table ── */
     .history-card {
-        background: #fff;
-        border-radius: 24px;
-        border: 2px solid rgba(0,0,0,0.05);
+        background: #FFFFFF;
+        border-radius: 16px;
+        border: 1px solid #E5E0D5;
         overflow: hidden;
     }
     .table-wrap {
@@ -97,42 +98,44 @@
         min-width: 700px;
     }
     th {
-        background: #f8f9fa;
-        padding: 18px 20px;
+        background: #F0EBE0;
+        padding: 16px 20px;
         text-align: left;
-        font-size: 13px;
-        font-weight: 800;
-        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        border-bottom: 2px solid #eee;
+        border-bottom: 1px solid #E5E0D5;
+        font-family: 'Sora', sans-serif;
     }
     td {
-        padding: 20px;
-        border-bottom: 1px solid #f5f5f5;
-        font-size: 15px;
-        color: var(--text);
+        padding: 16px 20px;
+        border-bottom: 1px solid #F5F0E8;
+        font-size: 14px;
+        color: #555;
         vertical-align: middle;
     }
+    tr:nth-child(even) td { background: #FAFAF7; }
     tr:last-child td { border-bottom: none; }
-    tr:hover td { background: #fdfcf0; }
+    tr:hover td { background: #F5F5F0; }
 
     .badge-status {
-        padding: 6px 14px;
-        border-radius: 50px;
-        font-size: 12px;
-        font-weight: 800;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
         text-transform: uppercase;
     }
-    .status-berhasil { background: #dcfce7; color: #15803d; }
-    .status-gagal { background: #fee2e2; color: #b91c1c; }
-    .status-berjalan { background: #fff3bf; color: #e67e22; }
+    .status-berhasil { background: rgba(101,163,13,.1); color: #65A30D; }
+    .status-gagal { background: rgba(217,119,6,.1); color: #D97706; }
+    .status-berjalan { background: var(--accent); color: #0D0D0D; }
 
     .btn-export {
         background: var(--accent);
-        color: #fff;
-        padding: 12px 24px;
-        border-radius: 14px;
+        color: #0D0D0D;
+        padding: 10px 20px;
+        border-radius: 999px;
         text-decoration: none;
         font-weight: 700;
         font-size: 14px;
@@ -141,7 +144,7 @@
     .btn-export:hover { opacity: 0.9; }
 
     .pagination-wrap {
-        padding: 24px;
+        padding: 20px;
         display: flex;
         justify-content: center;
     }
@@ -149,7 +152,7 @@
     .empty-row td {
         text-align: center;
         padding: 80px 20px !important;
-        color: #aaa;
+        color: #888;
     }
 
     @media (max-width: 600px) {
@@ -192,7 +195,7 @@
             <input type="date" name="sampai" value="{{ request('sampai') }}" class="form-control">
         </div>
         <div class="filter-actions">
-            <button type="submit" class="btn-filter">🔍 Filter</button>
+            <button type="submit" class="btn-filter">Filter</button>
             <a href="{{ route('riwayat.index') }}" class="btn-reset">Reset</a>
         </div>
     </form>
@@ -224,7 +227,7 @@
                     </td>
                     <td>
                         <div style="font-weight: 700;">{{ $row->sensor->nama_sensor ?? '-' }}</div>
-                        <div style="font-size: 13px; color: #aaa;">📍 {{ $row->sensor->lokasi ?? '-' }}</div>
+                        <div style="font-size: 13px; color: #888;">{{ $row->sensor->lokasi ?? '-' }}</div>
                     </td>
                     <td>
                         <span style="font-weight: 600; color: {{ $row->mode == 'otomatis' ? '#e67e22' : '#3498db' }};">

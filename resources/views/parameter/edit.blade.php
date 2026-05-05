@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ubah Parameter Sensor')
-@section('page-title', '✏️ Ubah Parameter Sensor')
+@section('page-title', 'Ubah Parameter Sensor')
 @section('page-subtitle', 'Sensor: {{ $sensor->nama_sensor ?? "" }}')
 
 @push('styles')
@@ -10,91 +10,93 @@
         max-width: 800px;
     }
     .config-card {
-        background: #fff;
-        border-radius: 28px;
-        padding: 40px;
-        border: 2px solid rgba(0,0,0,0.06);
+        background: #FFFFFF;
+        border-radius: 16px;
+        padding: 32px;
+        border: 1px solid #E5E0D5;
     }
     .config-section {
-        margin-bottom: 40px;
+        margin-bottom: 32px;
     }
     .config-title {
         font-size: 18px;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 24px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         gap: 10px;
         padding-bottom: 12px;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid #E5E0D5;
+        font-family: 'Sora', sans-serif;
     }
 
     .slider-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 28px;
+        gap: 20px;
     }
     .slider-item {
-        background: #f8f9fa;
-        padding: 24px;
-        border-radius: 20px;
+        background: #F5F0E8;
+        padding: 20px;
+        border-radius: 12px;
     }
     .slider-label {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
-        color: #555;
-        margin-bottom: 16px;
+        color: var(--text);
+        margin-bottom: 12px;
         display: block;
     }
     .slider-hint {
-        font-size: 13px;
-        color: #aaa;
+        font-size: 12px;
+        color: #888;
         margin-top: 8px;
     }
     .slider-input {
         width: 100%;
-        height: 12px;
-        background: #ddd;
-        border-radius: 10px;
+        height: 8px;
+        background: #E5E0D5;
+        border-radius: 999px;
         outline: none;
         -webkit-appearance: none;
         cursor: pointer;
     }
     .slider-input::-webkit-slider-thumb {
         -webkit-appearance: none;
-        width: 28px;
-        height: 28px;
-        background: var(--secondary);
+        width: 24px;
+        height: 24px;
+        background: var(--text);
         border: 4px solid #fff;
         border-radius: 50%;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .slider-input::-moz-range-thumb {
-        width: 28px;
-        height: 28px;
-        background: var(--secondary);
+        width: 24px;
+        height: 24px;
+        background: var(--text);
         border: 4px solid #fff;
         border-radius: 50%;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .slider-display {
         display: inline-block;
-        margin-top: 14px;
-        font-size: 28px;
+        margin-top: 12px;
+        font-size: 24px;
         font-weight: 800;
-        color: var(--primary);
+        color: var(--text);
         background: #fff;
-        padding: 6px 18px;
-        border-radius: 12px;
+        padding: 6px 16px;
+        border-radius: 10px;
+        font-family: 'Sora', sans-serif;
     }
 
     .mode-selector {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 16px;
     }
     .mode-option {
         position: relative;
@@ -107,66 +109,65 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 28px 20px;
-        background: #f8f9fa;
-        border: 2px solid transparent;
-        border-radius: 20px;
+        padding: 24px 20px;
+        background: #FFFFFF;
+        border: 2px solid #E5E0D5;
+        border-radius: 16px;
         cursor: pointer;
         transition: 0.2s;
         gap: 8px;
     }
     .mode-option input:checked + label {
-        border-color: var(--secondary);
-        background: #f0fdf4;
-        box-shadow: 0 8px 24px rgba(45, 106, 79, 0.1);
+        border-color: var(--text);
+        background: var(--accent);
+        box-shadow: 0 8px 24px rgba(200, 241, 53, 0.2);
     }
     .mode-option label:hover {
-        border-color: var(--secondary);
+        border-color: var(--text);
     }
-    .mode-icon { font-size: 32px; }
-    .mode-name { font-size: 18px; font-weight: 700; color: var(--text); }
-    .mode-desc { font-size: 13px; color: #888; }
+    .mode-icon { font-size: 28px; }
+    .mode-name { font-size: 16px; font-weight: 700; color: var(--text); }
+    .mode-desc { font-size: 12px; color: #666; }
 
     .action-btns {
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 16px;
-        margin-top: 40px;
+        margin-top: 32px;
     }
     .btn-save {
-        background: var(--primary);
-        color: #fff;
-        padding: 20px;
+        background: #0D0D0D;
+        color: #FFFFFF;
+        padding: 16px;
         border: none;
-        border-radius: 16px;
-        font-size: 17px;
-        font-weight: 800;
+        border-radius: 999px;
+        font-size: 16px;
+        font-weight: 700;
         cursor: pointer;
         font-family: inherit;
         transition: 0.2s;
     }
     .btn-save:hover {
-        background: var(--secondary);
-        transform: translateY(-2px);
+        background: #333;
     }
     .btn-back {
-        background: #f0f0f0;
-        color: #666;
-        padding: 20px;
-        border-radius: 16px;
+        background: #F5F0E8;
+        color: var(--text);
+        padding: 16px;
+        border-radius: 999px;
         text-decoration: none;
         text-align: center;
         font-weight: 700;
-        font-size: 16px;
+        font-size: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: 0.2s;
     }
-    .btn-back:hover { background: #e0e0e0; }
+    .btn-back:hover { background: #E5E0D5; }
 
     .error-msg {
-        color: #dc2626;
+        color: #D97706;
         font-size: 13px;
         margin-top: 8px;
     }
@@ -186,7 +187,7 @@
             @method('PATCH')
 
             <div class="config-section">
-                <div class="config-title">💧 Ambang Kelembapan</div>
+                <div class="config-title">Ambang Kelembapan</div>
                 <div class="slider-grid">
                     <div class="slider-item">
                         <label class="slider-label" for="min_k">Batas Minimum (Mulai Siram)</label>
@@ -212,7 +213,7 @@
             </div>
 
             <div class="config-section">
-                <div class="config-title">🧪 Rentang pH Tanah</div>
+                <div class="config-title">Rentang pH Tanah</div>
                 <div class="slider-grid">
                     <div class="slider-item">
                         <label class="slider-label" for="min_p">pH Minimum Aman</label>
@@ -236,13 +237,12 @@
             </div>
 
             <div class="config-section">
-                <div class="config-title">⚙️ Pilih Mode</div>
+                <div class="config-title">Pilih Mode</div>
                 <div class="mode-selector">
                     <div class="mode-option">
                         <input type="radio" name="mode_auto" id="auto" value="1"
                                {{ old('mode_auto', $parameter->mode_auto) ? 'checked' : '' }}>
                         <label for="auto">
-                            <span class="mode-icon">⚡</span>
                             <span class="mode-name">Otomatis</span>
                             <span class="mode-desc">Sistem menyiram sendiri</span>
                         </label>
@@ -251,7 +251,6 @@
                         <input type="radio" name="mode_auto" id="manual" value="0"
                                {{ !old('mode_auto', $parameter->mode_auto) ? 'checked' : '' }}>
                         <label for="manual">
-                            <span class="mode-icon">🖐</span>
                             <span class="mode-name">Manual</span>
                             <span class="mode-desc">Anda kontrol sendiri</span>
                         </label>
@@ -259,8 +258,13 @@
                 </div>
             </div>
 
+            <div style="margin-top:20px; font-size:13px; color:#888;">
+                Nilai default: Min 40%, Max 70% — sesuaikan kondisi bibit pepaya
+                <!-- // HARDCODE: move this note text to lang file or config in future -->
+            </div>
+
             <div class="action-btns">
-                <button type="submit" class="btn-save">💾 Simpan Pengaturan</button>
+                <button type="submit" class="btn-save">Simpan Pengaturan</button>
                 <a href="{{ route('parameter.index') }}" class="btn-back">Kembali</a>
             </div>
         </form>

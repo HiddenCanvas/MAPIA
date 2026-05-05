@@ -1,82 +1,83 @@
 @extends('layouts.app')
 
 @section('title', 'Pengaturan Parameter')
-@section('page-title', '⚙️ Pengaturan Parameter')
+@section('page-title', 'Pengaturan Parameter')
 @section('page-subtitle', 'Tentukan ambang batas otomatisasi penyiraman')
 
 @push('styles')
 <style>
     .param-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-        gap: 28px;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 16px;
     }
     .param-card {
-        background: #fff;
-        border-radius: 24px;
-        padding: 32px;
-        border: 2px solid rgba(0,0,0,0.06);
+        background: #FFFFFF;
+        border-radius: 16px;
+        padding: 24px;
+        border: 1px solid #E5E0D5;
         transition: all 0.25s ease;
     }
     .param-card:hover {
-        border-color: var(--secondary);
+        border-color: var(--text);
         transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.06);
     }
     .param-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 28px;
-        padding-bottom: 18px;
-        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #E5E0D5;
     }
     .sensor-info h3 {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
-        color: var(--primary);
+        color: var(--text);
         margin-bottom: 4px;
+        font-family: 'Sora', sans-serif;
     }
     .sensor-info p {
-        font-size: 14px;
-        color: #999;
+        font-size: 13px;
+        color: #888;
     }
     .mode-badge {
-        padding: 8px 18px;
-        border-radius: 50px;
-        font-size: 13px;
+        padding: 6px 16px;
+        border-radius: 999px;
+        font-size: 12px;
         font-weight: 700;
     }
-    .mode-auto { background: #fff3bf; color: #e67e22; }
-    .mode-manual { background: #e7f5ff; color: #339af0; }
+    .mode-auto { background: var(--accent); color: #0D0D0D; }
+    .mode-manual { background: #E5E0D5; color: #666; }
 
     .threshold-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 28px;
+        gap: 16px;
+        margin-bottom: 24px;
     }
     .threshold-item {
-        background: #f8f9fa;
-        padding: 22px 18px;
-        border-radius: 18px;
+        background: #F5F0E8;
+        padding: 16px;
+        border-radius: 12px;
         text-align: center;
     }
     .threshold-label {
-        font-size: 13px;
-        color: #888;
+        font-size: 12px;
+        color: #666;
         font-weight: 600;
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     .threshold-range {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 800;
         color: var(--text);
+        font-family: 'Sora', sans-serif;
     }
     .threshold-unit {
-        font-size: 14px;
-        color: #aaa;
+        font-size: 13px;
+        color: #888;
         font-weight: 500;
     }
 
@@ -84,27 +85,26 @@
         display: block;
         width: 100%;
         text-align: center;
-        background: var(--primary);
-        color: #fff;
-        padding: 18px;
-        border-radius: 16px;
+        background: #0D0D0D;
+        color: #FFFFFF;
+        padding: 14px;
+        border-radius: 999px;
         text-decoration: none;
-        font-weight: 700;
-        font-size: 16px;
+        font-weight: 600;
+        font-size: 14px;
         transition: all 0.2s;
     }
     .btn-edit-full:hover {
-        background: var(--secondary);
-        transform: translateY(-2px);
+        background: #333;
     }
 
     .empty-state {
         grid-column: 1 / -1;
         text-align: center;
         padding: 80px 20px;
-        color: #aaa;
+        color: #888;
     }
-    .empty-state h2 { font-size: 22px; margin-bottom: 8px; color: #888; }
+    .empty-state h2 { font-size: 20px; margin-bottom: 8px; color: var(--text); font-family: 'Sora', sans-serif; }
 
     @media (max-width: 500px) {
         .param-grid { grid-template-columns: 1fr; }
@@ -120,38 +120,38 @@
         <div class="param-header">
             <div class="sensor-info">
                 <h3>{{ $p->sensor->nama_sensor ?? 'Sensor Tanpa Nama' }}</h3>
-                <p>📍 {{ $p->sensor->lokasi ?? 'Lokasi Umum' }}</p>
+                <p>{{ $p->sensor->lokasi ?? 'Lokasi Umum' }}</p>
             </div>
             <span class="mode-badge {{ $p->mode_auto ? 'mode-auto' : 'mode-manual' }}">
-                {{ $p->mode_auto ? '⚡ Otomatis' : '🖐 Manual' }}
+                {{ $p->mode_auto ? 'Otomatis' : 'Manual' }}
             </span>
         </div>
 
         <div class="threshold-grid">
             <div class="threshold-item">
-                <span class="threshold-label">💧 Kelembapan Min</span>
+                <span class="threshold-label">Kelembapan Min</span>
                 <div class="threshold-range">
                     {{ number_format($p->min_kelembapan, 0) }}<span class="threshold-unit">%</span>
                 </div>
             </div>
             <div class="threshold-item">
-                <span class="threshold-label">💧 Kelembapan Maks</span>
+                <span class="threshold-label">Kelembapan Maks</span>
                 <div class="threshold-range">
                     {{ number_format($p->max_kelembapan, 0) }}<span class="threshold-unit">%</span>
                 </div>
             </div>
             <div class="threshold-item">
-                <span class="threshold-label">🧪 pH Min</span>
+                <span class="threshold-label">pH Min</span>
                 <div class="threshold-range">{{ number_format($p->min_ph, 1) }}</div>
             </div>
             <div class="threshold-item">
-                <span class="threshold-label">🧪 pH Maks</span>
+                <span class="threshold-label">pH Maks</span>
                 <div class="threshold-range">{{ number_format($p->max_ph, 1) }}</div>
             </div>
         </div>
 
         <a href="{{ route('parameter.edit', $p->id_parameter) }}" class="btn-edit-full">
-            ✏️ Ubah Pengaturan
+            Ubah Pengaturan
         </a>
     </div>
     @empty
