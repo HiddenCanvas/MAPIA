@@ -44,11 +44,12 @@ class MqttSubscribeCommand extends Command
         };
 
         // Mulai subscribe – gunakan nama koneksi default (config/mqtt-client.php)
-        MQTT::subscribe($topic, $callback, 0);
+        $mqtt = MQTT::connection();
+        $mqtt->subscribe($topic, $callback, 0);
 
         // Loop event (blocking) – Ctrl‑C untuk menghentikan
         $this->info('Listening to MQTT topic: ' . $topic);
-        MQTT::loop(true);
+        $mqtt->loop(true);
     }
 
     /** Cari id_sensor berdasarkan MAC address (Anda dapat sesuaikan) */
