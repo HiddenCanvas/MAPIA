@@ -8,6 +8,7 @@ use App\Models\RiwayatPenyiraman;
 use App\Models\ParameterPenyiraman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpMqtt\Client\Facades\MQTT;
 
 class MonitoringController extends Controller
 {
@@ -81,7 +82,7 @@ class MonitoringController extends Controller
 
         // KEDEPANNYA UNTUK IOT:
         // Saat mode berubah, publish pesan MQTT ke NodeMCU/ESP32 agar alat tau harus jalan otomatis atau tunggu perintah manual.
-        // Contoh: MQTT::publish('mapia/sensor/'.$sensor->mac_address.'/mode', $modeText);
+        MQTT::publish('mapia/sensor/'.$sensor->mac_address.'/mode', $modeText);
 
         return back()->with('success', 'Mode penyiraman berhasil diubah dan riwayat diperbarui.');
     }
@@ -120,7 +121,7 @@ class MonitoringController extends Controller
 
             // KEDEPANNYA UNTUK IOT:
             // Kirim perintah MQTT untuk menyalakan relay pompa.
-            // Contoh: MQTT::publish('mapia/actuator/'.$sensor->mac_address.'/pump', 'ON');
+            MQTT::publish('mapia/actuator/'.$sensor->mac_address.'/pump', 'ON');
         }
 
         return back()->with('success', 'Pompa berhasil dinyalakan.');
@@ -150,7 +151,7 @@ class MonitoringController extends Controller
 
         // KEDEPANNYA UNTUK IOT:
         // Kirim perintah MQTT untuk mematikan relay pompa.
-        // Contoh: MQTT::publish('mapia/actuator/'.$sensor->mac_address.'/pump', 'OFF');
+        MQTT::publish('mapia/actuator/'.$sensor->mac_address.'/pump', 'OFF');
 
         return back()->with('success', 'Pompa berhasil dimatikan.');
     }

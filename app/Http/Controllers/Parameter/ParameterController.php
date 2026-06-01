@@ -7,6 +7,7 @@ use App\Models\ParameterPenyiraman;
 use App\Models\Sensor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpMqtt\Client\Facades\MQTT;
 
 class ParameterController extends Controller
 {
@@ -67,12 +68,30 @@ class ParameterController extends Controller
             'isi_data'       => "Parameter ambang batas untuk sensor {$parameter->sensor->nama_sensor} berhasil diperbarui.",
         ]);
 
+
+        
         // KEDEPANNYA UNTUK IOT:
         // Kirim payload JSON ke ESP32 yang berisi parameter min/max baru, agar ESP32 bisa memproses secara mandiri.
-        // Contoh payload: $payload = json_encode(['min_kel' => $parameter->min_kelembapan, 'max_kel' => $parameter->max_kelembapan]);
-        // MQTT::publish('mapia/sensor/'.$parameter->sensor->mac_address.'/parameter', $payload);
+        $payload = json_encode(['min_kel' => $parameter->min_kelembapan, 'max_kel' => $parameter->max_kelembapan]);
+        MQTT::publish('mapia/sensor/'.$parameter->sensor->mac_address.'/parameter', $payload);
 
         return redirect()->route('parameter.index')
             ->with('success', 'Parameter sensor berhasil disimpan!');
     }
+    // Method khusus untuk ESP32 (tidak butuh Auth)
+public function getForDevice($id)
+{
+    $parameter = ParameterPenyiraman::with('sensor')
+        ->where('id_sensor', $id)
+        ->firstOrFail();
+
+    return response()->json([
+        'id_sensor'       => $parameter->id_sensor,
+        'min_kelembapan'  => $parameter->min_kelembapan,
+        'max_kelembapan'  => $parameter->max_kelembapan,
+        'min_ph'          => $parameter->min_ph,
+        'max_ph'          => $parameter->max_ph,
+        'mode_auto'       => $parameter->kontrolSiram->mode_auto ?? true,
+    ]);
+}
 }
